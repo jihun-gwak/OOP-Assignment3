@@ -1,4 +1,4 @@
-# WordTracker Program User Guide
+# WordTracker Program
 
 ## Introduction
 WordTracker is a Java-based program that extracts words from a text file and tracks the file names and line numbers where each word appears. It allows you to analyze and generate reports about the frequency and location of words in a given text.
