@@ -2,7 +2,6 @@ package implementations;
 
 import utilities.Iterator;
 import utilities.BSTreeADT;
-import utilities.BSTreeNode;
 
 import java.io.Serializable;
 
@@ -12,7 +11,8 @@ import java.io.Serializable;
  * @param <E> the type of elements maintained by this BST
  */
 public class BSTree<E extends Comparable<E>> implements BSTreeADT<E>, Serializable {
-    private BSTreeNode<E> root;
+    private static final long serialVersionUID = 5907685409899986079L;
+	private BSTreeNode<E> root;
     private int size;
 
     // Constructor
@@ -117,18 +117,48 @@ public class BSTree<E extends Comparable<E>> implements BSTreeADT<E>, Serializab
     }
 
     public Iterator<E> inorderIterator() {
-        // Implement in-order traversal
-        return new BSTreeIterator<>(root, TraversalOrder.IN_ORDER);
+    	BSTreeIterator<E> accumulator = new BSTreeIterator<E>();
+        return inOrderIteratorRecursive(root, accumulator);
+    }
+    
+    private BSTreeIterator<E> inOrderIteratorRecursive(BSTreeNode<E> node, BSTreeIterator<E> accumulator) {
+    	if (node == null){
+    		return accumulator;
+    	}
+    	accumulator = inOrderIteratorRecursive(node.getLeft(), accumulator);
+    	accumulator.addElement(node.getElement());
+    	return inOrderIteratorRecursive(node.getRight(), accumulator);
     }
 
     public Iterator<E> preorderIterator() {
-        // Implement pre-order traversal
-        return new BSTreeIterator<>(root, TraversalOrder.PRE_ORDER);
+        BSTreeIterator<E> accumulator = new BSTreeIterator<E>();
+        return preOrderIteratorRecursive(root, accumulator);
+    }
+    
+    private BSTreeIterator<E> preOrderIteratorRecursive(BSTreeNode<E> node, BSTreeIterator<E> accumulator) {
+    	if (node == null) {
+    		return accumulator;
+    	}
+    	
+    	accumulator.addElement(node.getElement());
+    	accumulator = preOrderIteratorRecursive(node.getLeft(), accumulator);
+    	return preOrderIteratorRecursive(node.getRight(), accumulator);
     }
 
     public Iterator<E> postorderIterator() {
-        // Implement post-order traversal
-        return new BSTreeIterator<>(root, TraversalOrder.POST_ORDER);
+        BSTreeIterator<E> accumulator = new BSTreeIterator<E>();
+        return postOrderIteratorRecursive(root, accumulator);
+    }
+    
+    private BSTreeIterator<E> postOrderIteratorRecursive(BSTreeNode<E> node, BSTreeIterator<E> accumulator) {
+    	if (node == null) {
+    		return accumulator;
+    	}
+    	
+    	accumulator = postOrderIteratorRecursive(node.getLeft(), accumulator);
+    	accumulator = postOrderIteratorRecursive(node.getRight(), accumulator);
+    	accumulator.addElement(node.getElement());
+    	return accumulator;
     }
 
     @Override
