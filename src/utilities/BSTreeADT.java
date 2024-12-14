@@ -13,7 +13,6 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         this.size = 0;
     }
 
-    @Override
     public BSTreeNode<E> getRoot() throws NullPointerException {
         if (root == null) {
             throw new NullPointerException("The tree is empty.");
@@ -21,7 +20,6 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         return root;
     }
 
-    @Override
     public int getHeight() {
         return calculateHeight(root);
     }
@@ -33,23 +31,19 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         return 1 + Math.max(calculateHeight(node.getLeft()), calculateHeight(node.getRight()));
     }
 
-    @Override
     public int size() {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    @Override
     public void clear() {
         root = null;
         size = 0;
     }
 
-    @Override
     public boolean contains(E entry) throws NullPointerException {
         if (entry == null) {
             throw new NullPointerException("Cannot search for null.");
@@ -57,7 +51,6 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         return search(entry) != null;
     }
 
-    @Override
     public BSTreeNode<E> search(E entry) throws NullPointerException {
         if (entry == null) {
             throw new NullPointerException("Cannot search for null.");
@@ -76,7 +69,6 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         }
     }
 
-    @Override
     public boolean add(E newEntry) throws NullPointerException {
         if (newEntry == null) {
             throw new NullPointerException("Cannot add null.");
@@ -167,11 +159,10 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         return node;
     }
 
-    @Override
     public Iterator<E> inorderIterator() {
         List<E> elements = new ArrayList<>();
         inorderTraversal(root, elements);
-        return elements.iterator();
+        return (Iterator<E>) elements.iterator();
     }
 
     private void inorderTraversal(BSTreeNode<E> node, List<E> elements) {
@@ -182,11 +173,10 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         }
     }
 
-    @Override
     public Iterator<E> preorderIterator() {
         List<E> elements = new ArrayList<>();
         preorderTraversal(root, elements);
-        return elements.iterator();
+        return (Iterator<E>) elements.iterator();
     }
 
     private void preorderTraversal(BSTreeNode<E> node, List<E> elements) {
@@ -197,11 +187,10 @@ public class BSTreeADT<E extends Comparable<? super E>> implements BSTreeADT<E> 
         }
     }
 
-    @Override
     public Iterator<E> postorderIterator() {
         List<E> elements = new ArrayList<>();
         postorderTraversal(root, elements);
-        return elements.iterator();
+        return (Iterator<E>) elements.iterator();
     }
 
     private void postorderTraversal(BSTreeNode<E> node, List<E> elements) {
